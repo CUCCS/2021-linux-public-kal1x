@@ -1,7 +1,11 @@
 # 2021-linux-public-EddieXu1125
 **2021-linux-public-EddieXu1125 created by GitHub Classroom**
 
+![travis](https://www.travis-ci.com/EddieXu1125/Travis-test.svg?branch=main&status=passed)
+
 这是`第四次`实验的仓库
+
+仓库中的代码均已在自己的[Travis-test](https://github.com/EddieXu1125/Travis-test)仓库测试完毕,相关代码与报告见chap0x04文件夹
 
 需要遵循如下要求：
 
