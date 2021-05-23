@@ -1,7 +1,7 @@
 # 2021-linux-public-EddieXu1125
 **2021-linux-public-EddieXu1125 created by GitHub Classroom**
 
-这是8章内容中 `h1-h5` 的作业提交仓库
+这是`第三次`实验的仓库
 
 需要遵循如下要求：
 
@@ -17,7 +17,7 @@
   - 代码块正确使用语法高亮标记 （仅有这一条少量违反，本项可以不扣分。超过 5 处代码引用未高亮标记，扣 0.5 分）
 - `git` 使用规范 「0.5分」
   - 在 PR 标题中体现了作业序号，例如 `chap0x01`
-  - 推荐的目录结构和分支结构
+  - [推荐的目录结构和分支结构](https://c4pr1c3.github.io/cuc-ns/chap0x01/exp.html)
   - 见名知意 的文件命名，好评 示例如 `logged_in.png`, `install_complete.png` 。扣分 示例：`1.png`, `新建文本文件.md` 。
 - 实验报告结构规范性程度 「0.5分」
   - 在实验报告末总结了遇到的问题与解决方案
