@@ -1,0 +1,42 @@
+language: bash
+
+before_install:
+  - sudo apt-get update && sudo apt-get install -y shellcheck
+  - sudo apt-get install imagemagick 
+  - sudo apt-get install p7zip-full 
+
+script:
+  - ls -l
+  - shellcheck Task1-ProcessImages.sh
+  - echo Task1
+  - echo "=============================="
+  - bash Task1-ProcessImages.sh -h
+  - bash Task1-ProcessImages.sh -q ./img 90
+  - bash Task1-ProcessImages.sh -r ./img 90%
+  - bash Task1-ProcessImages.sh -w ./img xzl SouthEast 20 y
+  - bash Task1-ProcessImages.sh -p ./img Pre
+  - bash Task1-ProcessImages.sh -s ./img Suf
+  - bash Task1-ProcessImages.sh -t ./img
+  - echo "=============================="
+  - shellcheck Task2-ProcessFile.sh
+  - echo Task2
+  - echo "=============================="
+  - bash Task2-ProcessFile.sh -h
+  - bash Task2-ProcessFile.sh -a
+  - bash Task2-ProcessFile.sh -p
+  - bash Task2-ProcessFile.sh -n
+  - bash Task2-ProcessFile.sh -m
+  - echo "=============================="
+  - shellcheck Task3-ProcessFile.sh
+  - echo Task3
+  - bash Task3-ProcessFile.sh -h
+  - bash Task3-ProcessFile.sh -t
+  - bash Task3-ProcessFile.sh -i
+  - bash Task3-ProcessFile.sh -u
+  - bash Task3-ProcessFile.sh -s
+  - bash Task3-ProcessFile.sh -c
+  - bash Task3-ProcessFile.sh -f /whats-new.html
+
+notifications:
+  email:
+    on_success: never
