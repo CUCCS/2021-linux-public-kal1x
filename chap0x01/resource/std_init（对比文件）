@@ -1,0 +1,92 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  refresh-installer:
+    update: yes # Check for updated installer
+  network:
+    ethernets:
+      enp0s3: {dhcp4: true}
+      enp0s8: {dhcp4: true}
+    version: 2
+  storage: # partition the hard drives using curtin
+    version: 1
+    layout:
+      name: direct
+    grub:
+      install_devices:
+        - ssd0-boot
+    swap:
+      size: 0
+    config:
+      # goals: ESP + boot + root
+      - id: ssd0 # select raw disk (block device, like sda)
+        type: disk
+        match:
+          size: largest # select highest-capacity block device
+        ptable: gpt
+        wipe: superblock
+      - id: ssd0-esp # create partitions on disk (like sda1)
+        type: partition
+        device: ssd0
+        size: 512MB
+        flag: boot # EFI system partition needs boot flag
+      - id: ssd0-boot
+        type: partition
+        device: ssd0
+        size: 512MB
+      - id: ssd0-root
+        type: partition
+        device: ssd0
+        size: -1 # use the rest of the disk
+      - id: ssd0-esp-fs # format partitions on disk
+        type: format
+        volume: ssd0-esp
+        fstype: fat32
+        label: ESP
+      - id: ssd0-boot-fs
+        type: format
+        volume: ssd0-boot
+        fstype: ext4
+        label: BOOT
+      - id: ssd0-root-fs
+        type: format
+        volume: ssd0-root
+        fstype: xfs
+        label: ROOT
+      - id: ssd0-esp-mount # mount partitions
+        type: mount
+        device: ssd0-esp-fs
+        path: /boot/efi
+      - id: ssd0-boot-mount
+        type: mount
+        device: ssd0-boot-fs
+        path: "/boot"
+      - id: ssd0-root-mount
+        type: mount
+        device: ssd0-root-fs
+        path: "/"
+  ssh:
+    install-server: yes
+    allow-pw: no
+  user-data: # cloud-config data goes under this heading
+    #cloud-config
+    timezone: Etc/UTC
+    locale: en_US.UTF-8
+    hostname: valleylodge
+    groups:
+      - coven
+    users:
+      - name: torgo
+        gecos: "I am Torgo; I take care of the place while the Master is away"
+        primary_group: coven
+        groups: sudo
+        lock-passwd: false
+        passwd: "$6$YKRovm9FTISaNtEk$KWxkNZUJ7MCOHsc/saxPoLBoShAtcpfwxlbcpLLAG/wQuoLjGkHnPxhfGAxXVE1C8nEnp36JHxdbrpW1QNb250" # shadow password hash
+        shell: /bin/bash
+        ssh_authorized_keys:
+          - "ssh-rsa AAAA... <snip> ...R4hhMq0LoQ== Torgo's SSH Key"
+        sudo: "ALL=(ALL) NOPASSWD:ALL"
+        uid: 9000
+    packages:
+      - build-essential
